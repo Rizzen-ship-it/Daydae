@@ -518,239 +518,125 @@ body {
    RESPONSIVE - TABLET & LANDSCAPE
    ============================================ */
 
-/* iPad portrait (768px+) */
-@media (min-width: 768px) {
-  #app {
-    max-width: 680px;
-  }
-  .bottom-nav {
-    max-width: 680px;
-  }
-  .tab-content {
-    padding: 1.5rem 2rem;
-    padding-bottom: 5.5rem;
-  }
-  .dday-stack {
-    flex-direction: row;
-    gap: 0.75rem;
-  }
-  .dday-card {
-    flex: 1;
-  }
-  .checklist-card {
-    padding: 1.25rem;
-  }
-  .auth-card {
-    max-width: 420px;
-  }
-  .auth-logo {
-    font-size: 4rem;
-  }
-  .nav-btn {
-    font-size: 0.7rem;
-    padding: 0.75rem 0.5rem;
-  }
-  .nav-btn svg {
-    width: 24px;
-    height: 24px;
-  }
-  .dday-count {
-    font-size: 2.2rem;
-  }
-  .home-date {
-    font-size: 0.85rem;
-  }
-  .form-grid {
-    grid-template-columns: 1fr 1fr 1fr;
-  }
-  .calc-row {
-    grid-template-columns: repeat(4, 1fr);
-  }
-  .weakness-card {
-    padding: 1rem 1.25rem;
-  }
-  .section-label {
-    font-size: 0.75rem;
-  }
+/* ============================================
+   RESPONSIVE LAYOUT
+   ============================================ */
+
+/* ── Base: phone portrait (default) ── */
+.bottom-nav {
+  position: fixed;
+  bottom: 0; left: 0; right: 0;
+  width: 100%;
+  background: var(--bg2);
+  border-top: 1px solid var(--border);
+  display: flex;
+  z-index: 100;
+  backdrop-filter: var(--glass-blur, none);
+  /* safe area for iPhone home bar */
+  padding-bottom: env(safe-area-inset-bottom, 0);
 }
 
-/* iPad landscape (1024px+) */
-@media (min-width: 1024px) {
-  #app {
-    max-width: 100vw;
-    flex-direction: row;
-    height: 100vh;
+/* ── iPad portrait (768px+) ── */
+@media (min-width: 768px) and (orientation: portrait) {
+  #app { max-width: 100vw; }
+  .bottom-nav { left: 0; right: 0; width: 100%; max-width: 100%; transform: none; }
+  .tab-content { padding: 1.5rem 2rem; padding-bottom: 5.5rem; }
+  .dday-stack { flex-direction: row; gap: 0.75rem; }
+  .dday-card { flex: 1; }
+  .nav-btn { font-size: 0.75rem; padding: 0.85rem 0.5rem; }
+  .nav-btn svg { width: 26px; height: 26px; }
+  .plus-circle { width: 54px; height: 54px; }
+}
+
+/* ── iPad landscape & desktop (1024px+) ── */
+@media (min-width: 1024px) and (orientation: landscape) {
+  #app { max-width: 100vw; flex-direction: row; height: 100vh; overflow: hidden; }
+
+  .bottom-nav {
+    position: fixed;
+    left: 0; top: 0; bottom: 0; right: auto;
+    width: 76px; height: 100vh;
+    flex-direction: column;
+    border-top: none; border-right: 1px solid var(--border);
+    transform: none;
+    padding: 1rem 0;
+    padding-bottom: 0;
+    justify-content: flex-start;
+    gap: 0.25rem;
     overflow: hidden;
   }
 
-  /* Sidebar nav on the left */
-  .bottom-nav {
-    position: fixed;
-    left: 0;
-    top: 0;
-    bottom: 0;
-    width: 80px;
-    max-width: 80px;
-    flex-direction: column;
-    border-top: none;
-    border-right: 1px solid var(--border);
-    transform: none;
-    height: 100vh;
-    padding: 1rem 0;
-    justify-content: flex-start;
-    gap: 0.25rem;
-  }
-
   .nav-btn {
-    padding: 0.85rem 0.5rem;
-    font-size: 0.55rem;
-    gap: 0.3rem;
-    width: 100%;
+    padding: 0.8rem 0.4rem;
+    font-size: 0.52rem;
+    gap: 0.25rem; width: 100%;
   }
+  .nav-btn svg { width: 22px; height: 22px; }
+  .plus-nav-btn { margin-top: 0.25rem; }
+  .plus-circle { width: 44px; height: 44px; }
 
-  .nav-btn svg {
-    width: 22px;
-    height: 22px;
-  }
-
-  /* Main content shifts right of sidebar */
   .tab-content {
-    margin-left: 80px;
-    padding: 2rem 3rem;
-    padding-bottom: 2rem;
-    max-width: calc(100vw - 80px);
-    height: 100vh;
-    overflow-y: auto;
+    margin-left: 76px;
+    padding: 1.5rem 2.5rem;
+    padding-bottom: 1.5rem;
+    max-width: calc(100vw - 76px);
+    height: 100vh; overflow-y: auto;
   }
 
-  /* Two column layout for home tab in landscape */
-  #tab-home {
+  #tab-home.active {
     display: grid;
     grid-template-columns: 1fr 1fr;
-    gap: 1rem;
-    align-content: start;
+    gap: 1rem; align-content: start;
   }
-
-  #tab-home > *:first-child {
-    grid-column: 1 / -1;
-  }
-
-  .dday-stack {
-    flex-direction: row;
-    gap: 0.75rem;
-    grid-column: 1 / -1;
-  }
-
+  #tab-home > div:first-child { grid-column: 1 / -1; }
+  .dday-stack { flex-direction: row; gap: 0.75rem; grid-column: 1 / -1; }
   .dday-card { flex: 1; }
-
   .stats-bar { grid-column: 1 / -1; }
-
-  .checklist-card {
-    grid-column: 1;
-    grid-row: span 2;
-  }
-
+  .section-label:has(+ .checklist-card) { grid-column: 1; }
+  .checklist-card { grid-column: 1; }
   .weekly-total-card { grid-column: 2; }
   .eod-section { grid-column: 2; }
   .mac-section { grid-column: 1 / -1; }
 
-  /* Auth screen centered */
-  #auth-screen {
-    padding-left: 0;
-  }
+  .modal-overlay, .confirm-overlay { left: 76px; }
+  .filter-drawer { left: 76px; max-width: calc(100vw - 76px); transform: none; }
+  .modal-sheet { max-width: calc(100vw - 76px); }
+  .plus-menu-overlay { left: 76px; }
+  .plus-menu-sheet { max-width: calc(100vw - 76px); }
+  .session-panel { left: 76px; }
+  .weak-popup-overlay { left: 76px; }
+  .weak-popup-sheet { max-width: calc(100vw - 76px); }
 
-  /* Modals and drawers stay centered */
-  .modal-overlay,
-  .filter-drawer,
-  .confirm-overlay {
-    left: 80px;
-  }
-
-  /* Fix modal sheet width in landscape */
-  .modal-sheet {
-    max-width: calc(100vw - 80px);
-  }
-
-  .filter-drawer {
-    max-width: calc(100vw - 80px);
-    left: 80px;
-    transform: none;
-  }
-
-  /* Syllabus two column in landscape */
-  #tab-syllabus .chapter-item {
-    break-inside: avoid;
-  }
-
-  /* Weakness two column */
-  #tab-weakness {
-    column-count: 2;
-    column-gap: 1rem;
-  }
-
-  .weakness-card {
-    break-inside: avoid;
-    margin-bottom: 0.5rem;
-  }
-
-  /* Log wider entries */
-  .day-card { margin-bottom: 0.75rem; }
+  #tab-weakness { column-count: 2; column-gap: 1rem; }
+  .weak-topic-card { break-inside: avoid; }
 }
 
-/* Phone landscape (short screens) */
+/* ── Phone landscape (short screens) ── */
 @media (max-height: 500px) and (orientation: landscape) {
   .bottom-nav {
     position: fixed;
-    left: 0; top: 0; bottom: 0;
-    width: 64px;
-    max-width: 64px;
+    left: 0; top: 0; bottom: 0; right: auto;
+    width: 60px; height: 100vh;
     flex-direction: column;
-    border-top: none;
-    border-right: 1px solid var(--border);
+    border-top: none; border-right: 1px solid var(--border);
     transform: none;
-    height: 100vh;
-    padding: 0.5rem 0;
-    justify-content: center;
-    gap: 0;
+    padding: 0.5rem 0; justify-content: center; gap: 0;
+    overflow: hidden;
   }
-
-  .nav-btn {
-    padding: 0.5rem 0.25rem;
-    font-size: 0.5rem;
-    gap: 0.15rem;
-  }
-
+  .nav-btn { padding: 0.5rem 0.2rem; font-size: 0.48rem; gap: 0.15rem; }
   .nav-btn svg { width: 18px; height: 18px; }
-
-  .tab-content {
-    margin-left: 64px;
-    padding: 0.75rem 1.25rem;
-    padding-bottom: 0.75rem;
-    height: 100vh;
-    overflow-y: auto;
-  }
-
+  .plus-circle { width: 36px; height: 36px; }
+  .tab-content { margin-left: 60px; padding: 0.75rem 1.25rem; padding-bottom: 0.75rem; height: 100vh; overflow-y: auto; }
   .dday-stack { flex-direction: row; gap: 0.5rem; }
   .dday-card { flex: 1; padding: 0.5rem 0.75rem; }
-  .dday-count { font-size: 1.4rem; }
-
-  #tab-home {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 0.5rem;
-    align-content: start;
-  }
-
-  #tab-home > *:first-child,
-  .dday-stack,
-  .stats-bar,
-  .mac-section {
-    grid-column: 1 / -1;
-  }
-
-  .modal-overlay, .confirm-overlay { left: 64px; }
-  .filter-drawer { left: 64px; max-width: calc(100vw - 64px); transform: none; }
-  .modal-sheet { max-width: calc(100vw - 64px); }
+  #tab-home.active { display: grid; grid-template-columns: 1fr 1fr; gap: 0.5rem; align-content: start; }
+  #tab-home > div:first-child, .dday-stack, .stats-bar, .mac-section { grid-column: 1 / -1; }
+  .modal-overlay, .confirm-overlay { left: 60px; }
+  .filter-drawer { left: 60px; max-width: calc(100vw - 60px); transform: none; }
+  .plus-menu-overlay { left: 60px; }
+  .plus-menu-sheet { max-width: calc(100vw - 60px); }
+  .session-panel { left: 60px; }
+  .weak-popup-overlay { left: 60px; }
 }
 
 /* ============================================
@@ -957,16 +843,14 @@ body {
    ============================================ */
 .bottom-nav {
   position: fixed;
-  bottom: 0;
-  left: 50%;
-  transform: translateX(-50%);
+  bottom: 0; left: 0; right: 0;
   width: 100%;
-  max-width: 480px;
   background: var(--bg2);
   border-top: 1px solid var(--border);
   display: flex;
   z-index: 100;
   backdrop-filter: var(--glass-blur, none);
+  padding-bottom: env(safe-area-inset-bottom, 0);
 }
 
 .nav-btn {
@@ -2494,6 +2378,266 @@ body {
 [data-theme="t12"] .task-checkbox { border-color: #8fbc8f; }
 [data-theme="t12"] .task-checkbox.checked { background: #8fbc8f; border-color: #8fbc8f; }
 
+/* ============================================
+   PLUS BUTTON & SESSION PANELS
+   ============================================ */
+.plus-nav-btn { position: relative; }
+.plus-circle {
+  width: 48px; height: 48px; border-radius: 50%;
+  background: var(--accent);
+  display: flex; align-items: center; justify-content: center;
+  box-shadow: var(--shadow), 0 4px 15px rgba(0,0,0,0.3);
+  transition: transform 0.15s; margin-bottom: 0.15rem;
+}
+.plus-circle:active { transform: scale(0.93); }
+
+.plus-menu-overlay {
+  position: fixed; inset: 0; background: rgba(0,0,0,0.6);
+  z-index: 450; display: none; align-items: flex-end; justify-content: center;
+  backdrop-filter: blur(4px);
+}
+.plus-menu-overlay.open { display: flex; }
+.plus-menu-sheet {
+  background: var(--bg2); border: 1px solid var(--border);
+  border-radius: calc(var(--radius)+8px) calc(var(--radius)+8px) 0 0;
+  padding: 1.5rem; width: 100%; max-width: 480px;
+  animation: slideUp 0.25s ease;
+}
+.plus-menu-title {
+  font-family: var(--font-display); font-size: 0.7rem; color: var(--text3);
+  letter-spacing: 0.2em; text-align: center; margin-bottom: 1.25rem;
+}
+.plus-menu-options { display: grid; grid-template-columns: 1fr 1fr; gap: 0.75rem; }
+.plus-option {
+  background: var(--bg3); border: 1px solid var(--border);
+  border-radius: var(--radius); padding: 1.25rem;
+  display: flex; flex-direction: column; align-items: center; gap: 0.5rem;
+  cursor: pointer; transition: border-color 0.2s;
+  font-family: var(--font-display); font-size: 1rem;
+  color: var(--text); letter-spacing: 0.08em; text-align: center;
+}
+.plus-option:hover { border-color: var(--accent); }
+.plus-option svg { width: 28px; height: 28px; stroke: var(--accent); fill: none; stroke-width: 1.5; }
+.plus-option-sub { font-size: 0.65rem; color: var(--text3); font-family: var(--font-body); }
+
+.session-panel {
+  position: fixed; inset: 0; background: var(--bg);
+  z-index: 480; display: none; flex-direction: column; overflow: hidden;
+}
+.session-panel.open { display: flex; }
+
+.panel-header {
+  display: flex; align-items: center; gap: 0.75rem;
+  padding: 0.85rem 1rem; border-bottom: 1px solid var(--border);
+  background: var(--bg2); flex-shrink: 0;
+}
+.panel-back {
+  background: none; border: none; color: var(--accent);
+  font-size: 1.3rem; cursor: pointer; padding: 0.2rem 0.4rem;
+}
+.panel-title {
+  font-family: var(--font-display); font-size: 1rem;
+  color: var(--text); letter-spacing: 0.1em; flex: 1;
+}
+.panel-action-btns { display: flex; gap: 0.4rem; }
+.panel-tab-btn {
+  background: transparent; border: 1px solid var(--border);
+  border-radius: var(--radius); padding: 0.3rem 0.6rem;
+  color: var(--text3); font-family: var(--font-body);
+  font-size: 0.7rem; cursor: pointer; transition: all 0.2s;
+}
+.panel-tab-btn.active { background: var(--accent); color: var(--bg); border-color: var(--accent); }
+
+.panel-body { flex: 1; overflow-y: auto; padding: 1rem; scrollbar-width: thin; }
+
+.subject-panels { display: flex; flex-direction: column; gap: 0.75rem; }
+.subject-panel {
+  background: var(--bg2); border: 1px solid var(--border);
+  border-radius: var(--radius); overflow: hidden;
+}
+.subject-panel-header {
+  display: flex; align-items: center; gap: 0.75rem;
+  padding: 0.75rem 1rem;
+}
+.subject-toggle-box {
+  width: 20px; height: 20px; border: 2px solid var(--border);
+  border-radius: calc(var(--radius)/2);
+  display: flex; align-items: center; justify-content: center;
+  flex-shrink: 0; transition: all 0.2s; background: var(--bg3); cursor: pointer;
+}
+.subject-toggle-box.on { background: var(--accent); border-color: var(--accent); }
+.subject-toggle-box.on::after { content: '✓'; color: var(--bg); font-size: 12px; font-weight: 700; }
+.subject-panel-name {
+  font-family: var(--font-display); font-size: 0.9rem;
+  color: var(--text); letter-spacing: 0.08em; flex: 1;
+}
+.subject-panel-body {
+  display: none; padding: 0 1rem 1rem;
+  border-top: 1px solid var(--border);
+}
+.subject-panel-body.open { display: block; }
+
+.select-label {
+  font-size: 0.62rem; color: var(--text3); letter-spacing: 0.1em;
+  text-transform: uppercase; font-family: var(--font-display);
+  margin-bottom: 0.3rem; display: block; margin-top: 0.75rem;
+}
+.chapter-select-btn {
+  width: 100%; background: var(--bg3); border: 1px solid var(--border);
+  border-radius: var(--radius); padding: 0.6rem 0.9rem;
+  color: var(--text); font-family: var(--font-body); font-size: 0.85rem;
+  text-align: left; cursor: pointer;
+  display: flex; justify-content: space-between; align-items: center;
+  outline: none;
+}
+.chapter-select-btn:focus { border-color: var(--accent); }
+
+.topic-dropdown {
+  background: var(--bg3); border: 1px solid var(--border);
+  border-radius: var(--radius); margin-top: 0.4rem;
+  display: none; max-height: 200px; overflow-y: auto;
+}
+.topic-dropdown.open { display: block; }
+.select-all-btn {
+  padding: 0.4rem 0.75rem; font-size: 0.7rem; color: var(--accent);
+  background: none; border: none; cursor: pointer;
+  font-family: var(--font-body); border-bottom: 1px solid var(--border);
+  width: 100%; text-align: left;
+}
+.topic-item {
+  display: flex; align-items: center; gap: 0.6rem;
+  padding: 0.45rem 0.75rem; border-bottom: 1px solid var(--border); cursor: pointer;
+}
+.topic-item:last-child { border-bottom: none; }
+.topic-cb {
+  width: 15px; height: 15px; border: 1px solid var(--border);
+  border-radius: 3px; flex-shrink: 0;
+  display: flex; align-items: center; justify-content: center;
+  background: var(--bg2); transition: all 0.15s;
+}
+.topic-cb.checked { background: var(--accent); border-color: var(--accent); }
+.topic-cb.checked::after { content: '✓'; color: var(--bg); font-size: 9px; }
+.topic-name { font-size: 0.8rem; color: var(--text2); flex: 1; }
+
+.score-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 0.5rem; margin-top: 0.75rem; }
+.score-field label {
+  font-size: 0.6rem; color: var(--text3); letter-spacing: 0.1em;
+  text-transform: uppercase; font-family: var(--font-display);
+  display: block; margin-bottom: 0.25rem;
+}
+.score-input {
+  width: 100%; background: var(--bg2); border: 1px solid var(--border);
+  border-radius: var(--radius); padding: 0.5rem 0.7rem;
+  color: var(--text); font-family: var(--font-body); font-size: 0.9rem; outline: none;
+}
+.score-input:focus { border-color: var(--accent); }
+.score-calc {
+  background: var(--bg2); border: 1px solid var(--border);
+  border-radius: var(--radius); padding: 0.5rem 0.7rem;
+  color: var(--accent); font-family: var(--font-display); font-size: 1rem;
+}
+
+.totals-bar {
+  background: var(--bg2); border: 1px solid var(--border);
+  border-radius: var(--radius); padding: 0.85rem 1rem; margin-top: 0.75rem;
+  display: grid; grid-template-columns: repeat(3,1fr); gap: 0.5rem; text-align: center;
+}
+.total-item-label {
+  font-size: 0.6rem; color: var(--text3); letter-spacing: 0.1em;
+  text-transform: uppercase; font-family: var(--font-display);
+}
+.total-item-val { font-family: var(--font-display); font-size: 1.3rem; color: var(--accent); }
+
+.weak-popup-overlay {
+  position: fixed; inset: 0; background: rgba(0,0,0,0.75);
+  z-index: 600; display: none; align-items: flex-end; justify-content: center;
+  backdrop-filter: blur(4px);
+}
+.weak-popup-overlay.open { display: flex; }
+.weak-popup-sheet {
+  background: var(--bg2); border: 1px solid var(--border);
+  border-radius: calc(var(--radius)+8px) calc(var(--radius)+8px) 0 0;
+  width: 100%; max-width: 480px; max-height: 80vh; overflow-y: auto;
+  padding: 1.5rem; animation: slideUp 0.25s ease;
+}
+.weak-popup-header {
+  display: flex; justify-content: space-between; align-items: center; margin-bottom: 1rem;
+}
+.weak-popup-title { font-family: var(--font-display); font-size: 1rem; color: var(--accent); letter-spacing: 0.1em; }
+.weak-subject-section { margin-bottom: 1rem; }
+.weak-subject-label {
+  font-size: 0.65rem; color: var(--text3); letter-spacing: 0.15em;
+  text-transform: uppercase; font-family: var(--font-display);
+  margin-bottom: 0.5rem; border-bottom: 1px solid var(--border); padding-bottom: 0.25rem;
+}
+.weak-chapter-item {
+  background: var(--bg3); border: 1px solid var(--border);
+  border-radius: var(--radius); margin-bottom: 0.4rem; overflow: hidden;
+}
+.weak-chapter-header {
+  padding: 0.6rem 0.8rem; cursor: pointer;
+  display: flex; justify-content: space-between; align-items: center;
+  font-size: 0.82rem; color: var(--text);
+}
+.weak-chapter-topics { display: none; border-top: 1px solid var(--border); }
+.weak-chapter-topics.open { display: block; }
+
+.session-log-card {
+  background: var(--bg2); border: 1px solid var(--border);
+  border-radius: var(--radius); margin-bottom: 0.6rem; overflow: hidden;
+}
+.session-log-header {
+  padding: 0.75rem 1rem;
+  display: flex; justify-content: space-between; align-items: center; cursor: pointer;
+}
+.session-log-name { font-family: var(--font-display); font-size: 0.9rem; color: var(--text); letter-spacing: 0.05em; }
+.session-log-meta { font-size: 0.7rem; color: var(--text3); margin-top: 0.15rem; }
+.session-log-score { font-family: var(--font-display); font-size: 1.1rem; color: var(--accent); }
+.session-log-body { display: none; padding: 0 1rem 1rem; border-top: 1px solid var(--border); }
+.session-log-body.open { display: block; }
+
+.scorecard-card {
+  background: var(--bg2); border: 1px solid var(--border);
+  border-radius: var(--radius); margin-bottom: 0.75rem; padding: 1rem;
+}
+.scorecard-name { font-family: var(--font-display); font-size: 1.1rem; color: var(--text); letter-spacing: 0.08em; margin-bottom: 0.25rem; }
+.scorecard-date { font-size: 0.7rem; color: var(--text3); margin-bottom: 0.75rem; }
+.scorecard-subject {
+  background: var(--bg3); border: 1px solid var(--border);
+  border-radius: var(--radius); padding: 0.6rem 0.75rem; margin-bottom: 0.4rem;
+}
+.scorecard-subj-name { font-family: var(--font-display); font-size: 0.75rem; color: var(--accent); letter-spacing: 0.1em; margin-bottom: 0.4rem; }
+.scorecard-stats { display: grid; grid-template-columns: repeat(5,1fr); gap: 0.3rem; font-size: 0.7rem; }
+.scorecard-stat { text-align: center; }
+.scorecard-stat-val { color: var(--text); font-weight: 700; font-size: 0.85rem; }
+.scorecard-stat-lbl { color: var(--text3); font-size: 0.58rem; }
+.scorecard-total {
+  margin-top: 0.75rem; padding-top: 0.75rem; border-top: 1px solid var(--border);
+  display: flex; justify-content: space-between; align-items: center;
+}
+.scorecard-total-score { font-family: var(--font-display); font-size: 1.5rem; color: var(--accent); }
+.weak-tag {
+  display: inline-block; background: rgba(255,100,100,0.15); color: var(--danger);
+  border-radius: 3px; padding: 0.1rem 0.35rem; font-size: 0.65rem; margin: 0.15rem 0.1rem;
+}
+
+.weak-topic-card {
+  background: var(--bg2); border: 1px solid var(--border);
+  border-radius: var(--radius); padding: 0.75rem 1rem; margin-bottom: 0.4rem;
+  display: flex; align-items: center; gap: 0.75rem;
+}
+.weak-topic-info { flex: 1; }
+.weak-topic-name { font-size: 0.85rem; color: var(--text); margin-bottom: 0.15rem; }
+.weak-topic-chapter { font-size: 0.7rem; color: var(--text3); }
+.weak-topic-count { font-family: var(--font-display); font-size: 1.2rem; color: var(--danger); }
+.weak-filter-row { display: flex; gap: 0.4rem; margin-bottom: 0.75rem; flex-wrap: wrap; }
+.weak-filter-chip {
+  padding: 0.3rem 0.65rem; border: 1px solid var(--border); border-radius: 20px;
+  background: transparent; color: var(--text3); font-family: var(--font-body);
+  font-size: 0.75rem; cursor: pointer; transition: all 0.2s;
+}
+.weak-filter-chip.active { background: var(--accent); color: var(--bg); border-color: var(--accent); }
+
 /* ══════════════════════════════════════════
    ANIMATIONS
 ══════════════════════════════════════════ */
@@ -2782,65 +2926,6 @@ select option { background: #1a1a1a; color: white; }
       <div id="log-feed"></div>
     </div>
 
-    <!-- PRACTICE TAB -->
-    <div class="tab-panel" id="tab-practice">
-      <div class="section-label" style="margin-bottom:0.75rem">Log Session</div>
-      <div class="practice-form">
-        <div class="form-row">
-          <label class="form-label">Chapter</label>
-          <select class="form-select" id="p-chapter" onchange="updateTopicHint()">
-            <option value="">Select chapter...</option>
-          </select>
-        </div>
-        <div class="form-row">
-          <label class="form-label">Topic</label>
-          <input class="form-input" id="p-topic" placeholder="e.g. Nucleophilic substitution">
-        </div>
-        <div class="form-grid">
-          <div class="form-row">
-            <label class="form-label">Total Qs</label>
-            <input class="form-input" id="p-total" type="number" min="0" oninput="calcPractice()">
-          </div>
-          <div class="form-row">
-            <label class="form-label">Attempted</label>
-            <input class="form-input" id="p-attempted" type="number" min="0" oninput="calcPractice()">
-          </div>
-          <div class="form-row">
-            <label class="form-label">Correct</label>
-            <input class="form-input" id="p-correct" type="number" min="0" oninput="calcPractice()">
-          </div>
-        </div>
-        <div class="calc-row">
-          <div class="calc-item">
-            <div class="calc-label">Incorrect</div>
-            <div class="calc-value" id="p-incorrect">—</div>
-          </div>
-          <div class="calc-item">
-            <div class="calc-label">Unattempted</div>
-            <div class="calc-value" id="p-unattempted">—</div>
-          </div>
-          <div class="calc-item">
-            <div class="calc-label">Score</div>
-            <div class="calc-value" id="p-score">—</div>
-          </div>
-          <div class="calc-item">
-            <div class="calc-label">Max Marks</div>
-            <div class="calc-value" id="p-max">—</div>
-          </div>
-        </div>
-        <button class="submit-btn" onclick="submitSession()">LOG SESSION</button>
-      </div>
-
-      <div class="recent-session hidden" id="recent-session">
-        <div class="recent-title">Last Session</div>
-        <div class="session-header">
-          <div class="session-chapter" id="rs-chapter"></div>
-          <div class="session-score" id="rs-score"></div>
-        </div>
-        <div style="font-size:0.75rem;color:var(--text3);margin-bottom:0.5rem" id="rs-topic"></div>
-        <div class="session-stats" id="rs-stats"></div>
-      </div>
-    </div>
 
     <!-- SYLLABUS TAB -->
     <div class="tab-panel" id="tab-syllabus">
@@ -2862,7 +2947,7 @@ select option { background: #1a1a1a; color: white; }
       <div id="weakness-list"></div>
     </div>
 
-  </div>
+  </div><!-- end tab-content -->
 
   <!-- Bottom Nav -->
   <nav class="bottom-nav">
@@ -2874,9 +2959,10 @@ select option { background: #1a1a1a; color: white; }
       <svg viewBox="0 0 24 24"><path d="M14 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/><polyline points="10 9 9 9 8 9"/></svg>
       Log
     </button>
-    <button class="nav-btn" id="nav-practice" onclick="switchTab('practice')">
-      <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="16"/><line x1="8" y1="12" x2="16" y2="12"/></svg>
-      Practice
+    <button class="nav-btn plus-nav-btn" id="nav-plus" onclick="openPlusMenu()">
+      <div class="plus-circle">
+        <svg viewBox="0 0 24 24" style="width:26px;height:26px;stroke:var(--bg);fill:none;stroke-width:2.5"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
+      </div>
     </button>
     <button class="nav-btn" id="nav-syllabus" onclick="switchTab('syllabus')">
       <svg viewBox="0 0 24 24"><path d="M2 3h6a4 4 0 014 4v14a3 3 0 00-3-3H2z"/><path d="M22 3h-6a4 4 0 00-4 4v14a3 3 0 013-3h7z"/></svg>
@@ -2887,6 +2973,70 @@ select option { background: #1a1a1a; color: white; }
       Weak
     </button>
   </nav>
+</div>
+
+<!-- ============ PLUS MENU ============ -->
+<div class="plus-menu-overlay" id="plus-menu-overlay" onclick="if(event.target===this)closePlusMenu()">
+  <div class="plus-menu-sheet">
+    <div class="plus-menu-title">WHAT ARE YOU LOGGING?</div>
+    <div class="plus-menu-options">
+      <div class="plus-option" onclick="openPanel('practice')">
+        <svg viewBox="0 0 24 24"><path d="M12 20h9"/><path d="M16.5 3.5a2.121 2.121 0 013 3L7 19l-4 1 1-4L16.5 3.5z"/></svg>
+        PRACTICE
+        <span class="plus-option-sub">Questions & topics</span>
+      </div>
+      <div class="plus-option" onclick="openPanel('test')">
+        <svg viewBox="0 0 24 24"><path d="M9 11l3 3L22 4"/><path d="M21 12v7a2 2 0 01-2 2H5a2 2 0 01-2-2V5a2 2 0 012-2h11"/></svg>
+        TEST
+        <span class="plus-option-sub">Full mock or sectional</span>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ============ PRACTICE PANEL ============ -->
+<div class="session-panel" id="practice-panel">
+  <div class="panel-header">
+    <button class="panel-back" onclick="closePanel('practice')">←</button>
+    <div class="panel-title">PRACTICE</div>
+    <div class="panel-action-btns">
+      <button class="panel-tab-btn active" id="prac-log-btn" onclick="switchPracticeView('log-session')">Log</button>
+      <button class="panel-tab-btn" id="prac-history-btn" onclick="switchPracticeView('history')">History</button>
+    </div>
+  </div>
+  <div class="panel-body" id="practice-panel-body">
+    <!-- Rendered by JS -->
+  </div>
+</div>
+
+<!-- ============ TEST PANEL ============ -->
+<div class="session-panel" id="test-panel">
+  <div class="panel-header">
+    <button class="panel-back" onclick="closePanel('test')">←</button>
+    <div class="panel-title">TEST</div>
+    <div class="panel-action-btns">
+      <button class="panel-tab-btn active" id="test-log-btn" onclick="switchTestView('log-test')">Log</button>
+      <button class="panel-tab-btn" id="test-history-btn" onclick="switchTestView('history')">History</button>
+      <button class="panel-tab-btn" id="test-scorecard-btn" onclick="switchTestView('scorecard')">Scores</button>
+    </div>
+  </div>
+  <div class="panel-body" id="test-panel-body">
+    <!-- Rendered by JS -->
+  </div>
+</div>
+
+<!-- ============ WEAK AREAS POPUP ============ -->
+<div class="weak-popup-overlay" id="weak-popup-overlay">
+  <div class="weak-popup-sheet">
+    <div class="weak-popup-header">
+      <div class="weak-popup-title">MARK WEAK AREAS</div>
+      <button class="clear-btn" onclick="skipWeakPopup()">None / Skip</button>
+    </div>
+    <div id="weak-popup-body"></div>
+    <div style="margin-top:1rem">
+      <button class="submit-btn" onclick="saveWeakAreas()">Save Weak Areas</button>
+    </div>
+  </div>
 </div>
 
 <!-- ============ FIREBASE + APP LOGIC ============ -->
@@ -3618,6 +3768,788 @@ window.setTheme = (t) => {
   saveState();
 };
 
+// ============ TOPICS DATA ============
+const TOPICS = {
+  11: {
+    Physics: {
+      "Chapter 1 - Units and Measurement": ["Introduction","The international system of units","Significant figures","Dimensions of physical quantities","Dimensional formulae and dimensional equations","Dimensional analysis and its applications"],
+      "Chapter 2 - Motion in a Straight Line": ["Introduction","Instantaneous velocity and speed","Acceleration","Kinematic equations for uniformly accelerated motion"],
+      "Chapter 3 - Motion in a Plane": ["Introduction","Scalars and vectors","Multiplication of vectors by real numbers","Addition and subtraction of vectors – graphical method","Resolution of vectors","Vector addition – analytical method","Motion in a plane","Motion in a plane with constant acceleration","Projectile motion","Uniform circular motion"],
+      "Chapter 4 - Law of Motion": ["Introduction","Aristotle's fallacy","The law of inertia","Newton's first law of motion","Newton's second law of motion","Newton's third law of motion","Conservation of momentum","Equilibrium of a particle","Common forces in mechanics","Circular motion","Solving problems in mechanics"],
+      "Chapter 5 - Work Energy and Power": ["Introduction","Notions of work and kinetic energy: The work-energy theorem","Work","Kinetic energy","Work done by a variable force","The work-energy theorem for a variable force","The concept of potential energy","The conservation of mechanical energy","The potential energy of a spring","Power","Collisions"],
+      "Chapter 6 - Systems of Particles and Rotational Motion": ["Introduction","Centre of mass","Motion of centre of mass","Linear momentum of a system of particles","Vector product of two vectors","Angular velocity and its relation with linear velocity","Torque and angular momentum","Equilibrium of a rigid body","Moment of inertia","Kinematics of rotational motion about a fixed axis","Dynamics of rotational motion about a fixed axis","Angular momentum in case of rotations about a fixed axis"],
+      "Chapter 7 - Gravitation": ["Introduction","Kepler's laws","Universal law of gravitation","The gravitational constant","Acceleration due to gravity of the earth","Acceleration due to gravity below and above the surface of earth","Gravitational potential energy","Escape speed","Earth satellites","Energy of an orbiting satellite"],
+      "Chapter 8 - Mechanical Properties of Solids": ["Introduction","Stress and strain","Hooke's law","Stress-strain curve","Elastic moduli","Applications of elastic behaviour of materials"],
+      "Chapter 9 - Mechanical Properties of Fluids": ["Introduction","Pressure","Streamline flow","Bernoulli's principle","Viscosity","Surface tension"],
+      "Chapter 10 - Thermal Properties of Matter": ["Introduction","Temperature and heat","Measurement of temperature","Ideal-gas equation and absolute temperature","Thermal expansion","Specific heat capacity","Calorimetry","Change of state","Heat transfer","Newton's law of cooling"],
+      "Chapter 11 - Thermodynamics": ["Introduction","Thermal equilibrium","Zeroth law of thermodynamics","Heat, internal energy and work","First law of thermodynamics","Specific heat capacity","Thermodynamic state variables and equation of state","Thermodynamic processes","Second law of thermodynamics","Reversible and irreversible processes","Carnot engine"],
+      "Chapter 12 - Kinetic Theory": ["Introduction","Molecular nature of matter","Behaviour of gases","Kinetic theory of an ideal gas","Law of equipartition of energy","Specific heat capacity","Mean free path"],
+      "Chapter 13 - Oscillations": ["Introduction","Periodic and oscillatory motions","Simple harmonic motion","Simple harmonic motion and uniform circular motion","Velocity and acceleration in simple harmonic motion","Force law for simple harmonic motion","Energy in simple harmonic motion","The Simple Pendulum"],
+      "Chapter 14 - Waves": ["Introduction","Transverse and longitudinal waves","Displacement relation in a progressive wave","The speed of a travelling wave","The principle of superposition of waves","Reflection of waves","Beats"]
+    },
+    Chemistry: {
+      "Chapter 1 - Some Basic Concepts of Chemistry": ["Importance of Chemistry","Nature of Matter","Properties of Matter and their Measurement","Uncertainty in Measurement","Laws of Chemical Combinations","Dalton's Atomic Theory","Atomic and Molecular Masses","Mole Concept and Molar Masses","Percentage Composition","Stoichiometry and Stoichiometric Calculations"],
+      "Chapter 2 - Structure of Atom": ["Discovery of Sub-atomic Particles","Atomic Models","Developments Leading to the Bohr's Model of Atom","Bohr's Model for Hydrogen Atom","Towards Quantum Mechanical Model of the Atom","Quantum Mechanical Model of Atom"],
+      "Chapter 3 - Classification of Elements and Periodicity in Properties": ["Why do we Need to Classify Elements?","Genesis of Periodic Classification","Modern Periodic Law and the Present Form of the Periodic Table","Nomenclature of Elements with Atomic Numbers > 100","Electronic Configurations of Elements and the Periodic Table","Electronic Configurations and Types of Elements: s, p, d, f Blocks","Periodic Trends in Properties of Elements"],
+      "Chapter 4 - Chemical Bonding and Molecular Structure": ["Kössel-Lewis Approach to Chemical Bonding","Ionic or Electrovalent Bond","Bond Parameters","The Valence Shell Electron Pair Repulsion (VSEPR) Theory","Valence Bond Theory","Hybridisation","Molecular Orbital Theory","Bonding in Some Homonuclear Diatomic Molecules","Hydrogen Bonding"],
+      "Chapter 5 - Thermodynamics": ["Thermodynamic Terms","Applications","Measurement of ΔU and ΔH: Calorimetry","Enthalpy Change of a Reaction","Enthalpies for Different Types of Reactions","Spontaneity","Gibbs Energy Change and Equilibrium"],
+      "Chapter 6 - Equilibrium": ["Equilibrium in Physical Processes","Equilibrium in Chemical Processes – Dynamic Equilibrium","Law of Chemical Equilibrium and Equilibrium Constant","Homogeneous Equilibria","Heterogeneous Equilibria","Applications of Equilibrium Constants","Relationship between K, Q and Gibbs Energy G"],
+      "Chapter 7 - Redox Reactions": ["Classical Idea of Redox Reactions","Redox Reactions in Terms of Electron Transfer Reactions","Oxidation Number","Redox Reactions and Electrode Processes"],
+      "Chapter 8 - Organic Chemistry Some Basic Principles and Techniques": ["General Introduction","Tetravalence of Carbon: Shapes of Organic Compounds","Structural Representations of Organic Compounds","Classification of Organic Compounds","Nomenclature of Organic Compounds","Isomerism","Fundamental Concepts in Organic Reaction Mechanism","Methods of Purification of Organic Compounds","Qualitative Analysis of Organic Compounds","Quantitative Analysis"],
+      "Chapter 9 - Hydrocarbons": ["Classification","Alkanes","Alkenes","Alkynes","Aromatic Hydrocarbon","Carcinogenicity and Toxicity"]
+    },
+    Biology: {
+      "Chapter 1 - The Living World": ["What is living?","Biodiversity and the need for classification","Taxonomy & Systematics","Concept of species and taxonomical hierarchy","Binomial nomenclature"],
+      "Chapter 2 - Biological Classification": ["Five kingdom classification","Salient features and classification of Monera, Protista, and Fungi into major groups","Lichens, Viruses, and Viroids"],
+      "Chapter 3 - Plant Kingdom": ["Salient features and classification of plants into major groups: Algae, Bryophytes, Pteridophytes, Gymnosperms","Distinguishing features and examples for each category"],
+      "Chapter 4 - Animal Kingdom": ["Salient features and classification of animals","Non-chordates up to phyla level","Chordates up to classes level"],
+      "Chapter 5 - Morphology of Flowering Plants": ["Morphology and modifications of Root, stem, and leaf","Inflorescence (cymose and racemose), flower, fruit, and seed","Study of families: Malvaceae, Cruciferae, Leguminosae, Compositae, Gramineae"],
+      "Chapter 6 - Anatomy of Flowering Plants": ["Animal tissues","Morphology, anatomy, and functions of digestive, circulatory, respiratory, nervous, and reproductive systems of an insect (Frog)"],
+      "Chapter 7 - Structural Organisation in Animals": ["Animal tissues","Morphology, anatomy, and functions of organ systems"],
+      "Chapter 8 - Cell The Unit of Life": ["Cell theory and cell as the basic unit of life","Structure of prokaryotic and eukaryotic cells (Plant vs Animal)","Cell envelope, cell membrane, and cell wall","Cell organelles: Endomembrane system (ER, Golgi, lysosomes, vacuoles), mitochondria, ribosomes, plastids, microbodies","Cytoskeleton, cilia, flagella, centrioles","Nucleus: nuclear membrane, chromatin, nucleolus"],
+      "Chapter 9 - Biomolecules": ["Chemical constituents of living cells","Structure and function of proteins, carbohydrates, lipids, and nucleic acids","Enzymes: types, properties, action, classification, and nomenclature"],
+      "Chapter 10 - Cell Cycle and Cell Division": ["Cell cycle, mitosis, meiosis, and their significance"],
+      "Chapter 11 - Photosynthesis in Higher Plants": ["Photosynthesis as autotrophic nutrition and site of action","Pigments involved","Photochemical and biosynthetic phases","Cyclic and non-cyclic photophosphorylation; Chemiosmotic hypothesis","Photorespiration; C3 and C4 pathways","Factors affecting photosynthesis"],
+      "Chapter 12 - Respiration in Plants": ["Exchange of gases","Cellular respiration: glycolysis, fermentation (anaerobic), TCA cycle, and ETS (aerobic)","Energy relations: ATP generation, Amphibolic pathways, and Respiratory quotient"],
+      "Chapter 13 - Plant Growth and Development": ["Seed germination and phases of plant growth","Differentiation, dedifferentiation, and redifferentiation","Sequence of developmental processes","Growth regulators: auxin, gibberellin, cytokinin, ethylene, ABA"],
+      "Chapter 14 - Breathing and Exchange of Gases": ["Respiratory system in humans and mechanism of breathing","Exchange and transport of gases; Regulation of respiration","Respiratory volumes and disorders (Asthma, Emphysema, Occupational disorders)"],
+      "Chapter 15 - Body Fluids and Circulation": ["Composition of blood, blood groups, and coagulation","Lymph and its function","Human circulatory system: Heart structure, cardiac cycle, cardiac output, and ECG","Double circulation and regulation of cardiac activity","Disorders: Hypertension, CAD, Angina pectoris, Heart failure"],
+      "Chapter 16 - Excretory Products and Their Elimination": ["Modes of excretion: Ammonotelism, ureotelism, uricotelism","Human excretory system: structure, function, and urine formation","Osmoregulation and regulation of kidney function","Disorders: Uraemia, Renal failure, Renal calculi, Nephritis; Dialysis"],
+      "Chapter 17 - Locomotion and Movement": ["Types of movement (ciliary, flagellar, muscular)","Skeletal muscle: contractile proteins and muscle contraction","Skeletal system and joints","Disorders: Myasthenia gravis, Tetany, Muscular dystrophy, Arthritis, Osteoporosis, Gout"],
+      "Chapter 18 - Neural Control and Coordination": ["Neuron and nerves","Human nervous system: CNS, PNS, and Visceral nervous system","Generation and conduction of nerve impulse"],
+      "Chapter 19 - Chemical Coordination and Integration": ["Endocrine glands and hormones","Human endocrine system: Hypothalamus, Pituitary, Pineal, Thyroid, Parathyroid, Adrenal, Pancreas, Gonads","Mechanism of hormone action","Role of hormones and related disorders"]
+    }
+  },
+  12: {
+    Physics: {
+      "Chapter 1 - Electric Charges and Fields": ["Introduction","Electric Charge","Conductors and Insulators","Basic Properties of Electric Charge","Coulomb's Law","Forces between Multiple Charges","Electric Field","Electric Field Lines","Electric Flux","Electric Dipole","Dipole in a Uniform External Field","Continuous Charge Distribution","Gauss's Law","Applications of Gauss's Law"],
+      "Chapter 2 - Electrostatic Potential and Capacitance": ["Introduction","Electrostatic Potential","Potential due to a Point Charge","Potential due to an Electric Dipole","Potential due to a System of Charges","Equipotential Surfaces","Potential Energy of a System of Charges","Potential Energy in an External Field","Electrostatics of Conductors","Dielectrics and Polarisation","Capacitors and Capacitance","The Parallel Plate Capacitor","Effect of Dielectric on Capacitance","Combination of Capacitors","Energy Stored in a Capacitor"],
+      "Chapter 3 - Current Electricity": ["Introduction","Electric Current","Electric Currents in Conductors","Ohm's law","Drift of Electrons and the Origin of Resistivity","Limitations of Ohm's Law","Resistivity of Various Materials","Temperature Dependence of Resistivity","Electrical Energy, Power","Cells, emf, Internal Resistance","Cells in Series and in Parallel","Kirchhoff's Rules","Wheatstone Bridge"],
+      "Chapter 4 - Moving Charges and Magnetism": ["Introduction","Magnetic Force","Motion in a Magnetic Field","Magnetic Field due to a Current Element, Biot-Savart Law","Magnetic Field on the Axis of a Circular Current Loop","Ampere's Circuital Law","The Solenoid","Force between Two Parallel Currents, the Ampere","Torque on Current Loop, Magnetic Dipole","The Moving Coil Galvanometer"],
+      "Chapter 5 - Magnetism And Matter": ["Introduction","The Bar Magnet","Magnetism and Gauss's Law","Magnetisation and Magnetic Intensity","Magnetic Properties of Materials"],
+      "Chapter 6 - Electromagnetic Induction": ["Introduction","The Experiments of Faraday and Henry","Magnetic Flux","Faraday's Law of Induction","Lenz's Law and Conservation of Energy","Motional Electromotive Force","Inductance","AC Generator"],
+      "Chapter 7 - Alternating Current": ["Introduction","AC Voltage Applied to a Resistor","Representation of AC Current and Voltage by Rotating Vectors — Phasors","AC Voltage Applied to an Inductor","AC Voltage Applied to a Capacitor","AC Voltage Applied to a Series LCR Circuit","Power in AC Circuit: The Power Factor","Transformers"],
+      "Chapter 8 - Electromagnetic Waves": ["Introduction","Displacement Current","Electromagnetic Waves","Electromagnetic Spectrum"],
+      "Chapter 9 - Ray Optics and Optical Instruments": ["Introduction","Reflection of Light by Spherical Mirrors","Refraction","Total Internal Reflection","Refraction at Spherical Surfaces and by Lenses","Refraction through a Prism","Optical Instruments"],
+      "Chapter 10 - Wave Optics": ["Introduction","Huygens Principle","Refraction and Reflection of Plane Waves using Huygens Principle","Coherent and Incoherent Addition of Waves","Interference of Light Waves and Young's Experiment","Diffraction","Polarisation"],
+      "Chapter 11 - Dual Nature of Radiation and Matter": ["Introduction","Electron Emission","Photoelectric Effect","Experimental Study of Photoelectric Effect","Photoelectric Effect and Wave Theory of Light","Einstein's Photoelectric Equation: Energy Quantum of Radiation","Particle Nature of Light: The Photon","Wave Nature of Matter"],
+      "Chapter 12 - Atoms": ["Introduction","Alpha-particle Scattering and Rutherford's Nuclear Model of Atom","Atomic Spectra","Bohr Model of the Hydrogen Atom","The Line Spectra of the Hydrogen Atom","DE Broglie's Explanation of Bohr's Second Postulate of Quantisation"],
+      "Chapter 13 - Nuclei": ["Introduction","Atomic Masses and Composition of Nucleus","Size of the Nucleus","Mass-Energy and Nuclear Binding Energy","Nuclear Force","Radioactivity","Nuclear Energy"],
+      "Chapter 14 - Semiconductor Electronic: Material, Devices and Simple Circuits": ["Introduction","Classification of Metals, Conductors and Semiconductors","Intrinsic Semiconductor","Extrinsic Semiconductor","p-n Junction","Semiconductor Diode","Application of Junction Diode as a Rectifier"]
+    },
+    Chemistry: {
+      "Chapter 1 - Solutions": ["Types of Solutions","Expressing Concentration of Solutions","Solubility","Vapour Pressure of Liquid Solutions","Ideal and Non-ideal Solutions","Colligative Properties and Determination of Molar Mass","Abnormal Molar Masses"],
+      "Chapter 2 - Electrochemistry": ["Electrochemical Cells","Galvanic Cells","Nernst Equation","Conductance of Electrolytic Solutions","Electrolytic Cells and Electrolysis","Batteries","Fuel Cells","Corrosion"],
+      "Chapter 3 - Chemical Kinetics": ["Rate of a Chemical Reaction","Factors Influencing Rate of a Reaction","Integrated Rate Equations","Temperature Dependence of the Rate of a Reaction","Collision Theory of Chemical Reactions"],
+      "Chapter 4 - The d and f Block Elements": ["Position in the Periodic Table","Electronic Configurations of the d-Block Elements","General Properties of the Transition Elements (d-Block)","Some Important Compounds of Transition Elements","The Lanthanoids","The Actinoids","Some Applications of d- and f-Block Elements"],
+      "Chapter 5 - Coordination Compounds": ["Werner's Theory of Coordination Compounds","Definitions of Some Important Terms Pertaining to Coordination Compounds","Nomenclature of Coordination Compounds","Isomerism in Coordination Compounds","Bonding in Coordination Compounds","Bonding in Metal Carbonyls","Importance and Applications of Coordination Compounds"],
+      "Chapter 6 - Haloalkanes and Haloarenes": ["Classification","Nomenclature","Nature of C-X Bond","Methods of Preparation of Haloalkanes","Preparation of Haloarenes","Physical Properties","Chemical Reactions","Polyhalogen Compounds"],
+      "Chapter 7 - Alcohols, Phenols and Ethers": ["Classification","Nomenclature","Structures of Functional Groups","Alcohols and Phenols","Some Commercially Important Alcohols","Ethers"],
+      "Chapter 8 - Aldehydes, Ketones and Carboxylic Acids": ["Nomenclature and Structure of Carbonyl Group","Preparation of Aldehydes and Ketones","Physical Properties","Chemical Reactions","Uses of Aldehydes and Ketones","Nomenclature and Structure of Carboxyl Group","Methods of Preparation of Carboxylic Acids","Physical Properties of Carboxylic Acids","Chemical Reactions of Carboxylic Acids","Uses of Carboxylic Acids"],
+      "Chapter 9 - Amines": ["Structure of Amines","Classification","Nomenclature","Preparation of Amines","Physical Properties","Chemical Reactions","Method of Preparation of Diazonium Salts","Physical Properties of Diazonium Salts","Chemical Reactions of Diazonium Salts","Importance of Diazonium Salts in Synthesis of Aromatic Compounds"],
+      "Chapter 10 - Biomolecules": ["Carbohydrates","Proteins","Enzymes","Vitamins","Nucleic Acids","Hormones"]
+    },
+    Biology: {
+      "Chapter 1 - Sexual Reproduction in Flowering Plants": ["Flower structure","Development of male and female gametophytes","Pollination: types, agencies, and examples","Outbreeding devices","Pollen-Pistil interaction","Double fertilization","Post fertilization events: Development of endosperm and embryo","Development of seed and formation of fruit","Special modes: apomixis, parthenocarpy, polyembryony","Significance of seed and fruit formation"],
+      "Chapter 2 - Human Reproduction": ["Male and female reproductive systems","Microscopic anatomy of testis and ovary","Gametogenesis: spermatogenesis & oogenesis","Menstrual cycle","Fertilisation, embryo development upto blastocyst formation, implantation","Pregnancy and placenta formation (Elementary idea)","Parturition (Elementary idea)","Lactation (Elementary idea)"],
+      "Chapter 3 - Reproductive Health": ["Need for reproductive health and prevention of sexually transmitted diseases (STD)","Birth control: Need and Methods","Contraception and Medical Termination of Pregnancy (MTP)","Amniocentesis","Infertility and assisted reproductive technologies: IVF, ZIFT, GIFT"],
+      "Chapter 4 - Principles of Inheritance and Variation": ["Mendelian Inheritance","Deviations from Mendelism: Incomplete dominance, Co-dominance, Multiple alleles and Inheritance of blood groups, Pleiotropy","Elementary idea of polygenic inheritance","Chromosome theory of inheritance","Chromosomes and genes","Sex determination: In humans, birds, honey bee","Linkage and crossing over","Sex linked inheritance: Haemophilia, Colour blindness","Mendelian disorders in humans: Thalassemia","Chromosomal disorders in humans: Down's syndrome, Turner's and Klinefelter's syndromes"],
+      "Chapter 5 - Molecular Basis of Inheritance": ["Search for genetic material and DNA as genetic material","Structure of DNA and RNA; DNA packaging","DNA replication","Central dogma","Transcription, genetic code, translation","Gene expression and regulation: Lac Operon","Genome and human genome project","DNA finger printing, protein biosynthesis"],
+      "Chapter 6 - Evolution": ["Origin of life","Biological evolution and evidences (Paleontology, comparative anatomy, embryology, molecular evidence)","Darwin's contribution, Modern Synthetic theory of Evolution","Mechanism of evolution: Variation (Mutation and Recombination)","Natural Selection: examples and types","Gene flow and genetic drift","Hardy-Weinberg's principle","Adaptive Radiation","Human evolution"],
+      "Chapter 7 - Human Health and Disease": ["Pathogens; parasites causing human diseases (Malaria, Filariasis, Ascariasis, Typhoid, Pneumonia, common cold, amoebiasis, ring worm, dengue, chikungunya)","Basic concepts of immunology-vaccines","Cancer, HIV and AIDS","Adolescence, drug and alcohol abuse"],
+      "Chapter 8 - Microbes in Human Welfare": ["In household food processing","Industrial production","Sewage treatment","Energy generation","Biocontrol agents and biofertilizers"],
+      "Chapter 9 - Biotechnology Principles and Processes": ["Genetic engineering (Recombinant DNA technology)"],
+      "Chapter 10 - Biotechnology and Its Applications": ["Application in health and agriculture: Human insulin and vaccine production, gene therapy","Genetically modified organisms: Bt crops","Transgenic Animals","Biosafety issues: Biopiracy and patents"],
+      "Chapter 11 - Organisms and Populations": ["Organisms and environment","Population interactions: mutualism, competition, predation, parasitism","Population attributes: growth, birth rate and death rate, age distribution"],
+      "Chapter 12 - Ecosystem": ["Patterns, components; productivity and decomposition","Energy flow","Pyramids of number, biomass, energy"],
+      "Chapter 13 - Biodiversity and Conservation": ["Concept and Patterns of Biodiversity","Importance and Loss of Biodiversity","Biodiversity conservation: Hotspots, endangered organisms, extinction","Red Data Book, biosphere reserves, National parks, sanctuaries, and Sacred Groves"]
+    }
+  }
+};
+
+// Custom topics added by user (editable in app)
+// Stored in STATE.customTopics = { "chapterKey": ["topic1", "topic2"] }
+
+function getTopicsForChapter(cls, subject, chapterName) {
+  const base = (TOPICS[cls]?.[subject]?.[chapterName]) || [];
+  const key = `${cls}_${subject}_${chapterName}`;
+  const custom = (STATE.customTopics || {})[key] || [];
+  return [...base, ...custom];
+}
+
+// ============ PLUS MENU ============
+window.openPlusMenu = () => {
+  document.getElementById('plus-menu-overlay').classList.add('open');
+};
+
+window.closePlusMenu = () => {
+  document.getElementById('plus-menu-overlay').classList.remove('open');
+};
+
+window.openPanel = (type) => {
+  closePlusMenu();
+  const panel = document.getElementById(`${type}-panel`);
+  panel.classList.add('open');
+  if (type === 'practice') renderPracticeLogSession();
+  if (type === 'test') renderTestLogSession();
+};
+
+window.closePanel = (type) => {
+  document.getElementById(`${type}-panel`).classList.remove('open');
+};
+
+// ============ PRACTICE PANEL ============
+let practiceView = 'log-session';
+
+window.switchPracticeView = (view) => {
+  practiceView = view;
+  document.getElementById('prac-log-btn').classList.toggle('active', view === 'log-session');
+  document.getElementById('prac-history-btn').classList.toggle('active', view === 'history');
+  if (view === 'log-session') renderPracticeLogSession();
+  else renderPracticeHistory();
+};
+
+// Practice session state
+let practiceSubjects = { Physics: false, Chemistry: false, Biology: false };
+let practiceData = {}; // { Physics: { class, chapter, topics, questions, attempted, correct, time }, ... }
+
+function renderPracticeLogSession() {
+  const body = document.getElementById('practice-panel-body');
+  body.innerHTML = `
+    <div class="subject-panels" id="prac-subject-panels">
+      ${['Physics','Chemistry','Biology'].map(subj => renderPracticeSubjectPanel(subj)).join('')}
+    </div>
+    <div style="margin-top:1rem">
+      <button class="submit-btn" onclick="submitPracticeSession()">LOG PRACTICE SESSION</button>
+    </div>
+  `;
+}
+
+function renderPracticeSubjectPanel(subj) {
+  const isOn = practiceSubjects[subj];
+  const data = practiceData[subj] || {};
+  const cls = data.class || 11;
+  const chapter = data.chapter || '';
+  const topics = data.topics || [];
+  const chapterList = Object.keys(TOPICS[cls]?.[subj] || {});
+  const topicList = chapter ? getTopicsForChapter(cls, subj, chapter) : [];
+
+  return `<div class="subject-panel" id="prac-panel-${subj}">
+    <div class="subject-panel-header">
+      <div class="subject-toggle-box ${isOn?'on':''}" onclick="togglePracticeSubject('${subj}')"></div>
+      <div class="subject-panel-name">${subj.toUpperCase()}</div>
+    </div>
+    ${isOn ? `<div class="subject-panel-body open" id="prac-body-${subj}">
+      <!-- Class toggle -->
+      <div style="display:flex;gap:0.4rem;margin-top:0.75rem;margin-bottom:0.5rem">
+        <button class="panel-tab-btn ${cls===11?'active':''}" onclick="setPracticeClass('${subj}',11)">11th</button>
+        <button class="panel-tab-btn ${cls===12?'active':''}" onclick="setPracticeClass('${subj}',12)">12th</button>
+      </div>
+      <!-- Chapter select -->
+      <label class="select-label">Chapter</label>
+      <select class="score-input" id="prac-chapter-${subj}" onchange="setPracticeChapter('${subj}',this.value)">
+        <option value="">Select chapter...</option>
+        ${chapterList.map(ch => `<option value="${ch}" ${ch===chapter?'selected':''}>${ch}</option>`).join('')}
+      </select>
+      <!-- Topics -->
+      ${chapter ? `
+      <label class="select-label" style="margin-top:0.6rem">Topics</label>
+      <div style="background:var(--bg3);border:1px solid var(--border);border-radius:var(--radius);max-height:160px;overflow-y:auto">
+        <button class="select-all-btn" onclick="selectAllPracticeTopics('${subj}')">Select All</button>
+        ${topicList.map((t,i) => `
+          <div class="topic-item" onclick="togglePracticeTopic('${subj}','${t.replace(/'/g,"\\'")}')">
+            <div class="topic-cb ${topics.includes(t)?'checked':''}"></div>
+            <div class="topic-name">${t}</div>
+          </div>`).join('')}
+      </div>` : ''}
+      <!-- Questions & time -->
+      <div class="score-grid">
+        <div class="score-field">
+          <label>Questions</label>
+          <input class="score-input" type="number" min="0" placeholder="0" value="${data.questions||''}" oninput="setPracticeField('${subj}','questions',this.value)">
+        </div>
+        <div class="score-field">
+          <label>Attempted</label>
+          <input class="score-input" type="number" min="0" placeholder="0" value="${data.attempted||''}" oninput="setPracticeField('${subj}','attempted',this.value)">
+        </div>
+        <div class="score-field">
+          <label>Correct</label>
+          <input class="score-input" type="number" min="0" placeholder="0" value="${data.correct||''}" oninput="setPracticeField('${subj}','correct',this.value)">
+        </div>
+        <div class="score-field">
+          <label>Time (min)</label>
+          <input class="score-input" type="number" min="0" placeholder="0" value="${data.time||''}" oninput="setPracticeField('${subj}','time',this.value)">
+        </div>
+      </div>
+    </div>` : `<div class="subject-panel-body" id="prac-body-${subj}"></div>`}
+  </div>`;
+}
+
+window.togglePracticeSubject = (subj) => {
+  practiceSubjects[subj] = !practiceSubjects[subj];
+  if (!practiceData[subj]) practiceData[subj] = { class: 11, chapter: '', topics: [], questions: '', attempted: '', correct: '', time: '' };
+  renderPracticeLogSession();
+};
+
+window.setPracticeClass = (subj, cls) => {
+  if (!practiceData[subj]) practiceData[subj] = {};
+  practiceData[subj].class = cls;
+  practiceData[subj].chapter = '';
+  practiceData[subj].topics = [];
+  renderPracticeLogSession();
+};
+
+window.setPracticeChapter = (subj, ch) => {
+  if (!practiceData[subj]) practiceData[subj] = {};
+  practiceData[subj].chapter = ch;
+  practiceData[subj].topics = [];
+  renderPracticeLogSession();
+};
+
+window.togglePracticeTopic = (subj, topic) => {
+  if (!practiceData[subj]) practiceData[subj] = { topics: [] };
+  if (!practiceData[subj].topics) practiceData[subj].topics = [];
+  const idx = practiceData[subj].topics.indexOf(topic);
+  if (idx === -1) practiceData[subj].topics.push(topic);
+  else practiceData[subj].topics.splice(idx, 1);
+  renderPracticeLogSession();
+};
+
+window.selectAllPracticeTopics = (subj) => {
+  const d = practiceData[subj] || {};
+  const all = getTopicsForChapter(d.class||11, subj, d.chapter||'');
+  practiceData[subj].topics = [...all];
+  renderPracticeLogSession();
+};
+
+window.setPracticeField = (subj, field, val) => {
+  if (!practiceData[subj]) practiceData[subj] = {};
+  practiceData[subj][field] = val;
+};
+
+window.submitPracticeSession = () => {
+  const activeSubjects = Object.keys(practiceSubjects).filter(s => practiceSubjects[s]);
+  if (activeSubjects.length === 0) { alert('Toggle at least one subject.'); return; }
+
+  const session = {
+    id: Date.now(),
+    type: 'practice',
+    date: todayKey(),
+    timestamp: new Date().toISOString(),
+    subjects: {}
+  };
+
+  let totalQ = 0;
+  for (const subj of activeSubjects) {
+    const d = practiceData[subj] || {};
+    session.subjects[subj] = {
+      class: d.class || 11,
+      chapter: d.chapter || '',
+      topics: d.topics || [],
+      questions: parseInt(d.questions) || 0,
+      attempted: parseInt(d.attempted) || 0,
+      correct: parseInt(d.correct) || 0,
+      incorrect: Math.max(0, (parseInt(d.attempted)||0) - (parseInt(d.correct)||0)),
+      unattempted: Math.max(0, (parseInt(d.questions)||0) - (parseInt(d.attempted)||0)),
+      time: parseInt(d.time) || 0
+    };
+    totalQ += session.subjects[subj].questions;
+  }
+
+  if (!STATE.practiceSessions) STATE.practiceSessions = [];
+  STATE.practiceSessions.push(session);
+  STATE.todayQuestions = (STATE.todayQuestions || 0) + totalQ;
+
+  // Log in daily log
+  const today = todayKey();
+  if (!STATE.dailyLog) STATE.dailyLog = {};
+  if (!STATE.dailyLog[today]) STATE.dailyLog[today] = { tasks: [], eod: [], practice: [] };
+  if (!STATE.dailyLog[today].practice) STATE.dailyLog[today].practice = [];
+  STATE.dailyLog[today].practice.push(session);
+
+  // Show weak areas popup
+  pendingWeakSession = session;
+  pendingWeakType = 'practice';
+  showWeakPopup(session, 'practice');
+
+  // Reset
+  practiceSubjects = { Physics: false, Chemistry: false, Biology: false };
+  practiceData = {};
+  renderPracticeLogSession();
+  updateStats(); renderWeeklyTotal(); saveState();
+};
+
+function renderPracticeHistory() {
+  const body = document.getElementById('practice-panel-body');
+  const sessions = (STATE.practiceSessions || []).filter(s => s.type === 'practice').reverse();
+  if (sessions.length === 0) {
+    body.innerHTML = '<div class="weakness-empty">No practice sessions yet.</div>'; return;
+  }
+  body.innerHTML = sessions.map((s, si) => {
+    const subjKeys = Object.keys(s.subjects || {});
+    const totalQ = subjKeys.reduce((sum, k) => sum + (s.subjects[k].questions||0), 0);
+    const subjDetail = subjKeys.map(k => {
+      const d = s.subjects[k];
+      return `<div style="margin-top:0.5rem;padding:0.5rem;background:var(--bg3);border-radius:var(--radius)">
+        <div style="font-family:var(--font-display);font-size:0.75rem;color:var(--accent);margin-bottom:0.3rem">${k.toUpperCase()}</div>
+        <div style="font-size:0.78rem;color:var(--text2)">${d.chapter || 'No chapter'}</div>
+        ${d.topics?.length ? `<div style="font-size:0.7rem;color:var(--text3);margin-top:0.2rem">${d.topics.join(', ')}</div>` : ''}
+        <div style="display:grid;grid-template-columns:repeat(4,1fr);gap:0.3rem;margin-top:0.4rem;font-size:0.7rem;text-align:center">
+          <div><div style="color:var(--text);font-weight:700">${d.questions}</div><div style="color:var(--text3)">Qs</div></div>
+          <div><div style="color:var(--text);font-weight:700">${d.attempted}</div><div style="color:var(--text3)">Att</div></div>
+          <div><div style="color:var(--text);font-weight:700">${d.correct}</div><div style="color:var(--text3)">Cor</div></div>
+          <div><div style="color:var(--text);font-weight:700">${d.time||0}m</div><div style="color:var(--text3)">Time</div></div>
+        </div>
+      </div>`;
+    }).join('');
+    return `<div class="session-log-card">
+      <div class="session-log-header" onclick="this.nextElementSibling.classList.toggle('open')">
+        <div>
+          <div class="session-log-name">${subjKeys.join(', ')}</div>
+          <div class="session-log-meta">${s.date} · ${totalQ} questions</div>
+        </div>
+        <button class="bullet-del" onclick="event.stopPropagation();deletePracticeSession(${s.id})" style="color:var(--danger)">✕</button>
+      </div>
+      <div class="session-log-body">${subjDetail}</div>
+    </div>`;
+  }).join('');
+}
+
+window.deletePracticeSession = (id) => {
+  showConfirm('Delete session?', 'This will also update the weakness tracker.', () => {
+    STATE.practiceSessions = (STATE.practiceSessions||[]).filter(s => s.id !== id);
+    // Remove from daily log too
+    Object.keys(STATE.dailyLog||{}).forEach(date => {
+      if (STATE.dailyLog[date].practice) {
+        STATE.dailyLog[date].practice = STATE.dailyLog[date].practice.filter(p => p.id !== id);
+      }
+    });
+    saveState(); renderPracticeHistory(); renderWeakness(); renderWeeklyTotal();
+  });
+};
+
+// ============ TEST PANEL ============
+let testView = 'log-test';
+let testSubjects = { Physics: false, Chemistry: false, Biology: false };
+let testData = {}; // per subject
+let testMeta = { name: '', date: todayKey() };
+
+window.switchTestView = (view) => {
+  testView = view;
+  document.getElementById('test-log-btn').classList.toggle('active', view === 'log-test');
+  document.getElementById('test-history-btn').classList.toggle('active', view === 'history');
+  document.getElementById('test-scorecard-btn').classList.toggle('active', view === 'scorecard');
+  if (view === 'log-test') renderTestLogSession();
+  else if (view === 'history') renderTestHistory();
+  else renderTestScorecard();
+};
+
+function renderTestLogSession() {
+  const body = document.getElementById('test-panel-body');
+  body.innerHTML = `
+    <div class="score-grid" style="margin-bottom:0.75rem">
+      <div class="score-field">
+        <label>Test Name</label>
+        <input class="score-input" id="test-name-input" placeholder="e.g. Allen Major 3" value="${testMeta.name}" oninput="testMeta.name=this.value">
+      </div>
+      <div class="score-field">
+        <label>Date</label>
+        <input class="score-input" type="date" value="${testMeta.date}" oninput="testMeta.date=this.value">
+      </div>
+    </div>
+    <div class="subject-panels">
+      ${['Physics','Chemistry','Biology'].map(subj => renderTestSubjectPanel(subj)).join('')}
+    </div>
+    ${getActiveTestSubjects().length > 0 ? renderTestTotals() : ''}
+    <div style="margin-top:1rem">
+      <button class="submit-btn" onclick="submitTestSession()">LOG TEST</button>
+    </div>
+  `;
+}
+
+function getActiveTestSubjects() {
+  return Object.keys(testSubjects).filter(s => testSubjects[s]);
+}
+
+function renderTestSubjectPanel(subj) {
+  const isOn = testSubjects[subj];
+  const data = testData[subj] || {};
+  const cls = data.class || 12;
+  const chapters = data.chapters || [];
+  const chapterList = Object.keys(TOPICS[cls]?.[subj] || {});
+
+  return `<div class="subject-panel">
+    <div class="subject-panel-header">
+      <div class="subject-toggle-box ${isOn?'on':''}" onclick="toggleTestSubject('${subj}')"></div>
+      <div class="subject-panel-name">${subj.toUpperCase()}</div>
+      ${isOn ? `<div style="font-family:var(--font-display);font-size:0.8rem;color:var(--accent)">${calcTestSubjectScore(subj)}</div>` : ''}
+    </div>
+    ${isOn ? `<div class="subject-panel-body open">
+      <div style="display:flex;gap:0.4rem;margin-top:0.75rem;margin-bottom:0.5rem">
+        <button class="panel-tab-btn ${cls===11?'active':''}" onclick="setTestClass('${subj}',11)">11th</button>
+        <button class="panel-tab-btn ${cls===12?'active':''}" onclick="setTestClass('${subj}',12)">12th</button>
+      </div>
+      <!-- Chapters multi-select -->
+      <label class="select-label">Chapters included</label>
+      <div style="background:var(--bg3);border:1px solid var(--border);border-radius:var(--radius);max-height:160px;overflow-y:auto;margin-bottom:0.75rem">
+        <button class="select-all-btn" onclick="selectAllTestChapters('${subj}')">Select All</button>
+        ${chapterList.map(ch => `
+          <div class="topic-item" onclick="toggleTestChapter('${subj}','${ch.replace(/'/g,"\\'")}')">
+            <div class="topic-cb ${chapters.includes(ch)?'checked':''}"></div>
+            <div class="topic-name" style="font-size:0.75rem">${ch}</div>
+          </div>`).join('')}
+      </div>
+      <!-- Score fields -->
+      <div class="score-grid">
+        <div class="score-field"><label>Total Qs</label><input class="score-input" type="number" min="0" placeholder="0" value="${data.questions||''}" oninput="setTestField('${subj}','questions',this.value)"></div>
+        <div class="score-field"><label>Attempted</label><input class="score-input" type="number" min="0" placeholder="0" value="${data.attempted||''}" oninput="setTestField('${subj}','attempted',this.value)"></div>
+        <div class="score-field"><label>Correct</label><input class="score-input" type="number" min="0" placeholder="0" value="${data.correct||''}" oninput="setTestField('${subj}','correct',this.value)"></div>
+        <div class="score-field"><label>Time (min)</label><input class="score-input" type="number" min="0" placeholder="0" value="${data.time||''}" oninput="setTestField('${subj}','time',this.value)"></div>
+        <div class="score-field"><label>Incorrect</label><div class="score-calc">${Math.max(0,(parseInt(data.attempted)||0)-(parseInt(data.correct)||0))}</div></div>
+        <div class="score-field"><label>Unattempted</label><div class="score-calc">${Math.max(0,(parseInt(data.questions)||0)-(parseInt(data.attempted)||0))}</div></div>
+        <div class="score-field"><label>Score</label><div class="score-calc">${(parseInt(data.correct)||0)*4 - Math.max(0,(parseInt(data.attempted)||0)-(parseInt(data.correct)||0))}</div></div>
+        <div class="score-field"><label>Max</label><div class="score-calc">${(parseInt(data.questions)||0)*4}</div></div>
+      </div>
+    </div>` : `<div class="subject-panel-body"></div>`}
+  </div>`;
+}
+
+function calcTestSubjectScore(subj) {
+  const d = testData[subj] || {};
+  const correct = parseInt(d.correct) || 0;
+  const attempted = parseInt(d.attempted) || 0;
+  const total = parseInt(d.questions) || 0;
+  const incorrect = Math.max(0, attempted - correct);
+  const score = correct * 4 - incorrect;
+  const max = total * 4;
+  return max > 0 ? `${score}/${max}` : '';
+}
+
+function renderTestTotals() {
+  const active = getActiveTestSubjects();
+  let totalQ = 0, totalScore = 0, totalMax = 0;
+  active.forEach(s => {
+    const d = testData[s] || {};
+    const q = parseInt(d.questions) || 0;
+    const correct = parseInt(d.correct) || 0;
+    const attempted = parseInt(d.attempted) || 0;
+    const incorrect = Math.max(0, attempted - correct);
+    totalQ += q;
+    totalScore += correct * 4 - incorrect;
+    totalMax += q * 4;
+  });
+  return `<div class="totals-bar">
+    <div><div class="total-item-label">Total Qs</div><div class="total-item-val">${totalQ}</div></div>
+    <div><div class="total-item-label">Score</div><div class="total-item-val">${totalScore}</div></div>
+    <div><div class="total-item-label">Max</div><div class="total-item-val">${totalMax}</div></div>
+  </div>`;
+}
+
+window.toggleTestSubject = (subj) => {
+  testSubjects[subj] = !testSubjects[subj];
+  if (!testData[subj]) testData[subj] = { class: 12, chapters: [], topics: {}, questions: '', attempted: '', correct: '', time: '' };
+  renderTestLogSession();
+};
+
+window.setTestClass = (subj, cls) => {
+  if (!testData[subj]) testData[subj] = {};
+  testData[subj].class = cls;
+  testData[subj].chapters = [];
+  testData[subj].topics = {};
+  renderTestLogSession();
+};
+
+window.toggleTestChapter = (subj, ch) => {
+  if (!testData[subj]) testData[subj] = { chapters: [], topics: {} };
+  if (!testData[subj].chapters) testData[subj].chapters = [];
+  const idx = testData[subj].chapters.indexOf(ch);
+  if (idx === -1) testData[subj].chapters.push(ch);
+  else testData[subj].chapters.splice(idx, 1);
+  renderTestLogSession();
+};
+
+window.selectAllTestChapters = (subj) => {
+  const cls = testData[subj]?.class || 12;
+  testData[subj].chapters = Object.keys(TOPICS[cls]?.[subj] || {});
+  renderTestLogSession();
+};
+
+window.setTestField = (subj, field, val) => {
+  if (!testData[subj]) testData[subj] = {};
+  testData[subj][field] = val;
+  // Re-render just the totals area without full re-render to preserve focus
+  const totalsEl = document.querySelector('.totals-bar');
+  if (totalsEl && getActiveTestSubjects().length > 0) {
+    totalsEl.outerHTML = renderTestTotals();
+  }
+};
+
+window.submitTestSession = () => {
+  const active = getActiveTestSubjects();
+  if (active.length === 0) { alert('Toggle at least one subject.'); return; }
+  if (!testMeta.name.trim()) { alert('Give the test a name.'); return; }
+
+  const session = {
+    id: Date.now(),
+    type: 'test',
+    name: testMeta.name.trim(),
+    date: testMeta.date || todayKey(),
+    timestamp: new Date().toISOString(),
+    subjects: {}
+  };
+
+  let totalQ = 0;
+  for (const subj of active) {
+    const d = testData[subj] || {};
+    const correct = parseInt(d.correct) || 0;
+    const attempted = parseInt(d.attempted) || 0;
+    const questions = parseInt(d.questions) || 0;
+    const incorrect = Math.max(0, attempted - correct);
+    session.subjects[subj] = {
+      class: d.class || 12,
+      chapters: d.chapters || [],
+      questions, attempted, correct, incorrect,
+      unattempted: Math.max(0, questions - attempted),
+      score: correct * 4 - incorrect,
+      maxMarks: questions * 4,
+      time: parseInt(d.time) || 0
+    };
+    totalQ += questions;
+  }
+
+  if (!STATE.testSessions) STATE.testSessions = [];
+  STATE.testSessions.push(session);
+  STATE.todayQuestions = (STATE.todayQuestions || 0) + totalQ;
+
+  pendingWeakSession = session;
+  pendingWeakType = 'test';
+  showWeakPopup(session, 'test');
+
+  testSubjects = { Physics: false, Chemistry: false, Biology: false };
+  testData = {};
+  testMeta = { name: '', date: todayKey() };
+  renderTestLogSession();
+  updateStats(); renderWeeklyTotal(); saveState();
+};
+
+function renderTestHistory() {
+  const body = document.getElementById('test-panel-body');
+  const sessions = (STATE.testSessions || []).slice().reverse();
+  if (sessions.length === 0) { body.innerHTML = '<div class="weakness-empty">No tests logged yet.</div>'; return; }
+
+  body.innerHTML = sessions.map(s => {
+    const subjKeys = Object.keys(s.subjects || {});
+    let totalScore = 0, totalMax = 0;
+    subjKeys.forEach(k => { totalScore += s.subjects[k].score||0; totalMax += s.subjects[k].maxMarks||0; });
+
+    const detail = subjKeys.map(k => {
+      const d = s.subjects[k];
+      return `<div style="margin-top:0.5rem;padding:0.5rem;background:var(--bg3);border-radius:var(--radius)">
+        <div style="font-family:var(--font-display);font-size:0.75rem;color:var(--accent);margin-bottom:0.3rem">${k.toUpperCase()} — ${d.score}/${d.maxMarks}</div>
+        <div style="font-size:0.72rem;color:var(--text3)">${(d.chapters||[]).join(', ') || 'All chapters'}</div>
+        <div style="display:grid;grid-template-columns:repeat(5,1fr);gap:0.2rem;margin-top:0.4rem;font-size:0.68rem;text-align:center">
+          ${['questions','attempted','correct','incorrect','time'].map(f => `<div><div style="color:var(--text);font-weight:700">${d[f]||0}${f==='time'?'m':''}</div><div style="color:var(--text3)">${f.slice(0,3)}</div></div>`).join('')}
+        </div>
+      </div>`;
+    }).join('');
+
+    return `<div class="session-log-card">
+      <div class="session-log-header" onclick="this.nextElementSibling.classList.toggle('open')">
+        <div>
+          <div class="session-log-name">${s.name}</div>
+          <div class="session-log-meta">${s.date}</div>
+        </div>
+        <div style="display:flex;align-items:center;gap:0.5rem">
+          <div class="session-log-score">${totalScore}/${totalMax}</div>
+          <button class="bullet-del" onclick="event.stopPropagation();deleteTestSession(${s.id})" style="color:var(--danger)">✕</button>
+        </div>
+      </div>
+      <div class="session-log-body">${detail}</div>
+    </div>`;
+  }).join('');
+}
+
+window.deleteTestSession = (id) => {
+  showConfirm('Delete test?', 'This will remove it from history and scorecard.', () => {
+    STATE.testSessions = (STATE.testSessions||[]).filter(s => s.id !== id);
+    // Remove weak areas for this session
+    if (STATE.weakAreas) STATE.weakAreas = STATE.weakAreas.filter(w => w.sessionId !== id);
+    saveState(); renderTestHistory(); renderWeakness();
+  });
+};
+
+function renderTestScorecard() {
+  const body = document.getElementById('test-panel-body');
+  const sessions = (STATE.testSessions || []).slice().reverse();
+  if (sessions.length === 0) { body.innerHTML = '<div class="weakness-empty">No tests logged yet.</div>'; return; }
+
+  body.innerHTML = sessions.map(s => {
+    const subjKeys = Object.keys(s.subjects || {});
+    let totalScore = 0, totalMax = 0, totalQ = 0;
+    subjKeys.forEach(k => { totalScore += s.subjects[k].score||0; totalMax += s.subjects[k].maxMarks||0; totalQ += s.subjects[k].questions||0; });
+    const weakForSession = (STATE.weakAreas||[]).filter(w => w.sessionId === s.id);
+    const weakTags = weakForSession.length > 0
+      ? `<div style="margin-top:0.5rem"><div style="font-size:0.65rem;color:var(--text3);margin-bottom:0.25rem;letter-spacing:0.1em">WEAK AREAS</div>${weakForSession.map(w => `<span class="weak-tag">${w.topic}</span>`).join('')}</div>`
+      : '';
+
+    const subjCards = subjKeys.map(k => {
+      const d = s.subjects[k];
+      return `<div class="scorecard-subject">
+        <div class="scorecard-subj-name">${k.toUpperCase()} — ${d.score}/${d.maxMarks}</div>
+        <div class="scorecard-stats">
+          ${[['Total',d.questions],['Att',d.attempted],['Cor',d.correct],['Wrg',d.incorrect],['Time',`${d.time||0}m`]].map(([l,v])=>`<div class="scorecard-stat"><div class="scorecard-stat-val">${v}</div><div class="scorecard-stat-lbl">${l}</div></div>`).join('')}
+        </div>
+      </div>`;
+    }).join('');
+
+    return `<div class="scorecard-card">
+      <div class="scorecard-name">${s.name}</div>
+      <div class="scorecard-date">${s.date} · ${totalQ} questions</div>
+      ${subjCards}
+      <div class="scorecard-total">
+        <div style="font-size:0.7rem;color:var(--text3)">TOTAL SCORE</div>
+        <div class="scorecard-total-score">${totalScore}/${totalMax}</div>
+      </div>
+      ${weakTags}
+    </div>`;
+  }).join('');
+}
+
+// ============ WEAK AREAS POPUP ============
+let pendingWeakSession = null;
+let pendingWeakType = null;
+let pendingWeakSelections = {}; // { "subj_chapter_topic": true }
+
+function showWeakPopup(session, type) {
+  pendingWeakSelections = {};
+  const body = document.getElementById('weak-popup-body');
+  const subjects = Object.keys(session.subjects || {});
+
+  body.innerHTML = subjects.map(subj => {
+    const d = session.subjects[subj];
+    const chapters = type === 'test' ? (d.chapters || []) : [d.chapter].filter(Boolean);
+    if (chapters.length === 0) return '';
+    return `<div class="weak-subject-section">
+      <div class="weak-subject-label">${subj}</div>
+      ${chapters.map(ch => {
+        const topics = getTopicsForChapter(d.class || (type==='test'?12:11), subj, ch);
+        return `<div class="weak-chapter-item">
+          <div class="weak-chapter-header" onclick="this.nextElementSibling.classList.toggle('open')">
+            <span>${ch}</span><span style="color:var(--text3);font-size:0.7rem">▼</span>
+          </div>
+          <div class="weak-chapter-topics">
+            ${topics.map(t => {
+              const key = `${subj}_${ch}_${t}`;
+              return `<div class="topic-item" onclick="toggleWeakTopic('${key.replace(/'/g,"\\'")}','${subj.replace(/'/g,"\\'")}','${ch.replace(/'/g,"\\'")}','${t.replace(/'/g,"\\'")}')">
+                <div class="topic-cb" id="wtcb-${key.replace(/[^a-zA-Z0-9]/g,'_')}"></div>
+                <div class="topic-name">${t}</div>
+              </div>`;
+            }).join('')}
+          </div>
+        </div>`;
+      }).join('')}
+    </div>`;
+  }).join('');
+
+  document.getElementById('weak-popup-overlay').classList.add('open');
+}
+
+window.toggleWeakTopic = (key, subj, chapter, topic) => {
+  pendingWeakSelections[key] = !pendingWeakSelections[key];
+  const cbId = 'wtcb-' + key.replace(/[^a-zA-Z0-9]/g,'_');
+  const cb = document.getElementById(cbId);
+  if (cb) cb.classList.toggle('checked', pendingWeakSelections[key]);
+};
+
+window.saveWeakAreas = () => {
+  if (!STATE.weakAreas) STATE.weakAreas = [];
+  const selected = Object.keys(pendingWeakSelections).filter(k => pendingWeakSelections[k]);
+  selected.forEach(key => {
+    const parts = key.split('_');
+    const subj = parts[0];
+    // key format: subj_chapter_topic
+    const rest = key.slice(subj.length + 1);
+    // find chapter and topic
+    const chapterNames = Object.keys(TOPICS[11]?.[subj] || {}).concat(Object.keys(TOPICS[12]?.[subj] || {}));
+    let chapter = '', topic = '';
+    for (const ch of chapterNames) {
+      if (rest.startsWith(ch + '_')) {
+        chapter = ch;
+        topic = rest.slice(ch.length + 1);
+        break;
+      }
+    }
+    if (!topic) {
+      // fallback: split at first underscore after subject
+      const segments = rest.split('_');
+      chapter = segments.slice(0,-1).join('_');
+      topic = segments[segments.length-1];
+    }
+    STATE.weakAreas.push({
+      id: Date.now() + Math.random(),
+      sessionId: pendingWeakSession?.id,
+      sessionType: pendingWeakType,
+      subject: subj,
+      chapter,
+      topic,
+      date: todayKey()
+    });
+  });
+  document.getElementById('weak-popup-overlay').classList.remove('open');
+  saveState();
+  renderWeakness();
+};
+
+window.skipWeakPopup = () => {
+  document.getElementById('weak-popup-overlay').classList.remove('open');
+};
+
+// ============ WEAKNESS TAB (updated) ============
+let weaknessFilter = 'All';
+
+function renderWeakness() {
+  const el = document.getElementById('weakness-list');
+  const areas = STATE.weakAreas || [];
+
+  // Count by topic
+  const topicCount = {};
+  areas.forEach(w => {
+    const key = `${w.subject}|||${w.chapter}|||${w.topic}`;
+    if (!topicCount[key]) topicCount[key] = { subject: w.subject, chapter: w.chapter, topic: w.topic, count: 0 };
+    topicCount[key].count++;
+  });
+
+  let ranked = Object.values(topicCount).sort((a,b) => b.count - a.count);
+  const subjects = ['All', ...new Set(ranked.map(r => r.subject))];
+
+  if (weaknessFilter !== 'All') ranked = ranked.filter(r => r.subject === weaknessFilter);
+
+  const filterHtml = `<div class="weak-filter-row">
+    ${subjects.map(s => `<button class="weak-filter-chip ${weaknessFilter===s?'active':''}" onclick="setWeaknessFilter('${s}')">${s}</button>`).join('')}
+  </div>`;
+
+  if (ranked.length === 0) {
+    el.innerHTML = filterHtml + '<div class="weakness-empty">No weak areas marked yet. They appear after logging sessions.</div>';
+    return;
+  }
+
+  el.innerHTML = filterHtml + ranked.map((r, i) => `
+    <div class="weak-topic-card">
+      <div style="font-family:var(--font-display);font-size:1.1rem;color:var(--text3);min-width:28px">#${i+1}</div>
+      <div class="weak-topic-info">
+        <div class="weak-topic-name">${r.topic}</div>
+        <div class="weak-topic-chapter">${r.chapter} · ${r.subject}</div>
+      </div>
+      <div class="weak-topic-count">${r.count}×</div>
+    </div>
+  `).join('');
+}
+
+window.setWeaknessFilter = (subj) => {
+  weaknessFilter = subj;
+  renderWeakness();
+};
+
 // ============ SERVICE WORKER ============
 if ('serviceWorker' in navigator) {
   window.addEventListener('load', () => {
@@ -3655,10 +4587,8 @@ function initApp() {
   renderMAC();
   renderWeeklyTotal();
   renderLog();
-  populateChapterDropdown();
   renderSyllabus();
   renderWeakness();
-  renderRecentSession();
   updateStats();
 }
 
@@ -3932,10 +4862,23 @@ function renderMAC() {
 
 // ============ WEEKLY TOTAL ============
 function getWeeklyTotal() {
-  const sessions = STATE.practiceSessions || [];
-  const now = new Date();
-  const cutoff = new Date(now - 7 * 86400000);
-  return sessions.filter(s => new Date(s.timestamp) >= cutoff).reduce((sum, s) => sum + (s.total || 0), 0);
+  const cutoff = new Date(Date.now() - 7 * 86400000);
+  const practiceSessions = (STATE.practiceSessions || []).filter(s => new Date(s.timestamp) >= cutoff);
+  const testSessions = (STATE.testSessions || []).filter(s => new Date(s.timestamp) >= cutoff);
+  let total = 0;
+  practiceSessions.forEach(s => {
+    if (s.subjects) {
+      Object.values(s.subjects).forEach(d => { total += d.questions || 0; });
+    } else {
+      total += s.total || 0;
+    }
+  });
+  testSessions.forEach(s => {
+    if (s.subjects) {
+      Object.values(s.subjects).forEach(d => { total += d.questions || 0; });
+    }
+  });
+  return total;
 }
 
 function getWeeklyTier(n) {
@@ -4354,46 +5297,6 @@ function renderSyllabus() {
   }).join('');
 }
 
-// ============ WEAKNESS TRACKER ============
-function renderWeakness() {
-  const el = document.getElementById('weakness-list');
-  const sessions = STATE.practiceSessions || [];
-  if (sessions.length === 0) {
-    el.innerHTML = '<div class="weakness-empty">Log practice sessions to see chapter analysis.</div>';
-    return;
-  }
-
-  const chapterMap = {};
-  sessions.forEach(s => {
-    if (!s.chapter) return;
-    if (!chapterMap[s.chapter]) chapterMap[s.chapter] = { totalScore: 0, totalMax: 0, sessions: 0, subject: '' };
-    chapterMap[s.chapter].totalScore += s.score;
-    chapterMap[s.chapter].totalMax += s.maxMarks;
-    chapterMap[s.chapter].sessions += 1;
-  });
-
-  const ranked = Object.entries(chapterMap)
-    .map(([ch, data]) => ({
-      chapter: ch,
-      pct: data.totalMax > 0 ? Math.round((data.totalScore / data.totalMax) * 100) : 0,
-      sessions: data.sessions
-    }))
-    .sort((a, b) => a.pct - b.pct);
-
-  el.innerHTML = ranked.map((r, i) => `
-    <div class="weakness-card">
-      <div class="weakness-rank">#${i+1}</div>
-      <div class="weakness-info">
-        <div class="weakness-chapter">${r.chapter}</div>
-        <div class="weakness-subject">${r.sessions} session${r.sessions!==1?'s':''}</div>
-        <div class="weakness-bar-wrap">
-          <div class="weakness-bar" style="width:${Math.max(0,r.pct)}%"></div>
-        </div>
-      </div>
-      <div class="weakness-pct">${r.pct}%</div>
-    </div>
-  `).join('');
-}
 
 // ============ TAB NAVIGATION ============
 window.switchTab = (tab) => {
